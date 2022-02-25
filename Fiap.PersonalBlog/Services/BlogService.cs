@@ -2,6 +2,7 @@
 using Fiap.PersonalBlog.Models;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Fiap.PersonalBlog.Services
@@ -15,7 +16,7 @@ namespace Fiap.PersonalBlog.Services
             _env = env;
         }
 
-        private List<BlogPost> Posts 
+        private List<BlogPost> Posts
         {
             get
             {
@@ -38,17 +39,27 @@ namespace Fiap.PersonalBlog.Services
             }
         }
 
+        private List<BlogPost> GetLastOrderingPosts(IEnumerable<BlogPost> query)
+        {
+            return query.OrderByDescending(e => e.PostId).Take(3).ToList();
+        }
+
         public List<BlogPost> GetLatestPosts()
         {
-            return Posts
-                .OrderBy(x => x.PostId)
-                .Take(3)
-                .ToList();
+            return GetLastOrderingPosts(Posts);
+        }
+
+        public List<BlogPost> GetOlderPosts(int olderBlogPostId)
+        {
+            var query = Posts.Where(post => post.PostId < olderBlogPostId);
+            return GetLastOrderingPosts(query);
         }
 
         public string GetPostText(string link)
         {
-            throw new System.NotImplementedException();
+            var post = Posts.FirstOrDefault(post => post.Link == link);
+
+            return File.ReadAllText($"{_env.ContentRootPath}/wwwroot/Posts/{post.PostId}_post.md");
         }
     }
 }

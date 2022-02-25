@@ -1,4 +1,5 @@
-﻿using Fiap.PersonalBlog.Models;
+﻿using Fiap.PersonalBlog.Interfaces;
+using Fiap.PersonalBlog.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,10 +14,12 @@ namespace Fiap.PersonalBlog.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBlogService _blogService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBlogService blogService, ILogger<HomeController> logger)
         {
             _logger = logger;
+            _blogService = blogService;
         }
 
         public IActionResult Index()
@@ -37,17 +40,20 @@ namespace Fiap.PersonalBlog.Controllers
 
         public JsonResult LatestBlogPost()
         {
-            var posts = new List<BlogPost>() 
-            { 
-                new BlogPost() { PostId = 1, Title = "post A", ShortDescription = "short for A"},
-                new BlogPost() { PostId = 2, Title = "post B", ShortDescription = "short for B"},
-                new BlogPost() { PostId = 3, Title = "post C", ShortDescription = "short for C"},
-                new BlogPost() { PostId = 4, Title = "post D", ShortDescription = "short for D"},
-                new BlogPost() { PostId = 5, Title = "post E", ShortDescription = "short for E"}
-
-            };
-
+            var posts = _blogService.GetLatestPosts();
             return Json(posts);
         }
+
+        public ContentResult Post(string link)
+        {
+            return Content(_blogService.GetPostText(link));
+        }
+
+        public JsonResult MoreBlogPosts(int oldestBlogPotId)
+        {
+            var posts = _blogService.GetOlderPosts(oldestBlogPotId);
+            return Json(posts);
+        }
+
     }
 }

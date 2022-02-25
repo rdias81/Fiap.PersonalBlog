@@ -7,5 +7,6 @@ namespace Fiap.PersonalBlog.Interfaces
     {
         List<BlogPost> GetLatestPosts();
         string GetPostText(string link);
+        List<BlogPost> GetOlderPosts(int oldestPostId);
     }
 }
