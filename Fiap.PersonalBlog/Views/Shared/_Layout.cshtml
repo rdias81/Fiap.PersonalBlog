@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PersonalBlog [RDias]</title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>@ViewData["Title"] - Personal Blog RDias</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -37,7 +39,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - PersonalBlog [RDias] - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Personal Blog RDias - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -46,6 +48,10 @@
     <script src="~/lib/fetch/fetch.js"></script>
     <script src="~/lib/systemjs/system.js"></script>
     <script src="~/lib/showdown/showdown.min.js"></script>
+    <script src="~/lib/localforage/localforage.min.js"></script>
+    <script src="~/lib/localforage/localforage-getitems.js"></script>
+    <script src="~/lib/localforage/localforage-setitems.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

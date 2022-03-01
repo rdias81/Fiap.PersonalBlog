@@ -49,9 +49,9 @@ namespace Fiap.PersonalBlog.Controllers
             return Content(_blogService.GetPostText(link));
         }
 
-        public JsonResult MoreBlogPosts(int oldestBlogPotId)
+        public JsonResult MoreBlogPosts(int oldestBlogPostId)
         {
-            var posts = _blogService.GetOlderPosts(oldestBlogPotId);
+            var posts = _blogService.GetOlderPosts(oldestBlogPostId);
             return Json(posts);
         }
 

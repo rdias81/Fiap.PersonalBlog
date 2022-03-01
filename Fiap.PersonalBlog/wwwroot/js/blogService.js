@@ -4,10 +4,12 @@ define(['./template.js', '../lib/showdown/showdown.js'], function (template, sho
     const blogPostUrl = '/Home/Post/?link=';
     const loadMorePostsUrl = '/Home/MoreBlogPosts/?oldestBlogPostId=';
 
-    let oldestBlogPostId = 0;
+    var oldestBlogPostId = 0;
 
     function setOldestBlogPostId(data) {
         const ids = data.map(item => item.postId);
+        console.log(data);
+        console.log(Math.min(...ids));
         oldestBlogPostId = Math.min(...ids);
     }
 
@@ -17,6 +19,7 @@ define(['./template.js', '../lib/showdown/showdown.js'], function (template, sho
             const json = await response.json();
             template.appendBlogList(json);
             setOldestBlogPostId(json);
+            console.log(oldestBlogPostId);
         } catch (e) {
             console.log('Error ao carregar data: ', e);
         }

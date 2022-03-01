@@ -11,6 +11,7 @@ define([], function () {
     }
 
     function appendBlogList(items) {
+        debugger;
         let cardHtml = '';
         for (let i = 0; i < items.length; i++) {
             cardHtml += generateBlogItem(items[i]);
