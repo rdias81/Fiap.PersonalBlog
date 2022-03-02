@@ -1,28 +1,24 @@
-define(['./template.js', '../lib/showdown/showdown.js'], function (template, showdown) {
+define(['./template.js', '../lib/showdown/showdown.js', './clientStorage.js'], function (template, showdown, clientStorage) {
 
     const blogPostsUrl = '/Home/LatestBlogPost/';
     const blogPostUrl = '/Home/Post/?link=';
     const loadMorePostsUrl = '/Home/MoreBlogPosts/?oldestBlogPostId=';
 
-    var oldestBlogPostId = 0;
-
-    function setOldestBlogPostId(data) {
-        const ids = data.map(item => item.postId);
-        console.log(data);
-        console.log(Math.min(...ids));
-        oldestBlogPostId = Math.min(...ids);
-    }
-
     async function loadData(url) {
+        let connectionStatus = '';
         try {
             const response = await fetch(url);
             const json = await response.json();
-            template.appendBlogList(json);
-            setOldestBlogPostId(json);
-            console.log(oldestBlogPostId);
+            clientStorage.addPost(json);
+            connectionStatus = 'Conexao com a API ok';
         } catch (e) {
             console.log('Error ao carregar data: ', e);
+            connectionStatus = 'Nao foi possivel buscar dados na API, vamos seguir offline';
         }
+
+        const posts = await clientStorage.getPosts();
+        template.appendBlogList(posts);
+        $('#connection-status').html(connectionStatus);
     }
 
     async function loadLatestBlogPosts() {
@@ -46,7 +42,7 @@ define(['./template.js', '../lib/showdown/showdown.js'], function (template, sho
     }
 
     async function loadMoreBlogPosts() {
-        await loadData(loadMorePostsUrl + oldestBlogPostId);
+        await loadData(loadMorePostsUrl + clientStorage.getOldestBlogPostId());
     }
 
     return {
