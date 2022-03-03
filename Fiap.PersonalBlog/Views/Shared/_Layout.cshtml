@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="-1">
+    <meta name="description" content="Blog de estudo MBA FIAP 20NET">
+    <meta name="theme-color" content="#9866c5" />
+
     <title>@ViewData["Title"] - Personal Blog RDias</title>
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="manifest" href="~/manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png" />
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Fiap.PersonalBlog</a>
+                <a id="blog-title" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Blog RDias</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
