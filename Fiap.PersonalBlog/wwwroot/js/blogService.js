@@ -51,7 +51,8 @@ define(['./template.js', '../lib/showdown/showdown.js', './clientStorage.js'], f
             template.showBlogItem(html, link);
             window.location = '#' + link;
         } else {
-            template.showBlogItem($('#blog-content-not-found').html(), link);
+            let blogItemHtml = $('#blog-content-not-found').html().replace(/{{Link}}/g, link);
+            template.showBlogItem(blogItemHtml, link);
             window.location = '#blog-item-container';
         }
     }

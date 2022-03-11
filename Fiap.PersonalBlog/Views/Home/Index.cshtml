@@ -36,12 +36,25 @@
 </script>
 
 <script id="blog-content-not-found" type="text/template">
-    <h1>
-        Oops, artigo nao encontrado no cache!
-    </h1>
-    <div>
-        Voce quer que nos continuemos tentando fazer o download do artigo em plano de fundo e te comunicar quando estiver disponivel?
+        <h1>
+            Oops, artigo nao encontrado no cache!
+        </h1>
+        <div>
+            Voce quer que nos continuemos tentando fazer o download do artigo em plano de fundo e te comunicar quando estiver disponivel?
+        </div>
+        <br/>
+        <button class="btn btn-primary download-start" onclick="pageEvents.setBackgroundFetch('{{Link}}')">Sim!</button>
+        <br />
+    <br />
+    <br />
+    <div id="status-download" style="display:none;">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
+        <div class="text-success" style="display:none;">
+            <p>pronto!</p>
+            <button class="btn btn-success" onclick="pageEvents.loadBlogPost('{{Link}}');">bora ler!</button>
+        </div>
     </div>
-    <br/>
-    <button class="btn btn-success">Sim!</button>
+
 </script>

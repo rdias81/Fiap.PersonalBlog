@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#9866c5" />
 
     <title>@ViewData["Title"] - Personal Blog RDias</title>
-    
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="manifest" href="~/manifest.json">
@@ -38,6 +38,12 @@
             </div>
         </nav>
     </header>
+
+    <div style="display: none; padding: 5px; text-align: center;" id="install-container">
+        <button onclick="pageEvents.tryAddHomeScreen();" class="btn-link no-style">Clique aqui</button> 
+        e adicione o blog na sua home!
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
