@@ -1,5 +1,7 @@
 var blogService = require('./blogService.js');
 const serviceWorker = require('./swRegister.js');
+const localization = require('./localization.js');
+const gyroscope = require('./gyroscope.js');
 
 let defferedPrompt;
 window.addEventListener('beforeinstallprompt', function (event) {
@@ -64,5 +66,19 @@ window.pageEvents = {
                 $('#status-download > .text-success').show();
             }
         });
+    },
+    getGeolocation: function () {
+        localization.getGeolocation();
+    },
+    vibrate: function () {
+        if ("vibrate" in navigator) {
+            // vibration API supported
+            navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+            navigator.vibrate([1000]);
+        }
     }
+
 }
+
+gyroscope.init();
+gyroscope.animate();
