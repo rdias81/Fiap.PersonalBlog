@@ -10,10 +10,12 @@ namespace Fiap.PersonalBlog.Services
     public class BlogService : IBlogService
     {
         private readonly IHostEnvironment _env;
+        private readonly IBlogRepository _repository;
 
-        public BlogService(IHostEnvironment env)
+        public BlogService(IHostEnvironment env, IBlogRepository repository)
         {
             _env = env;
+            _repository = repository;
         }
 
         private List<BlogPost> Posts
@@ -46,20 +48,24 @@ namespace Fiap.PersonalBlog.Services
 
         public List<BlogPost> GetLatestPosts()
         {
-            return GetLastOrderingPosts(Posts);
+            var posts = _repository.Listar();
+            return GetLastOrderingPosts(posts);
         }
 
         public List<BlogPost> GetOlderPosts(int olderBlogPostId)
         {
-            var query = Posts.Where(post => post.PostId < olderBlogPostId);
+            var posts = _repository.Listar();
+            var query = posts.Where(post => post.PostId < olderBlogPostId);
             return GetLastOrderingPosts(query);
         }
 
         public string GetPostText(string link)
         {
-            var post = Posts.FirstOrDefault(post => post.Link == link);
+            var posts = _repository.Listar();
+            var post = posts.FirstOrDefault(post => post.Link == link);
 
-            return File.ReadAllText($"{_env.ContentRootPath}/wwwroot/Posts/{post.PostId}_post.md");
+            return post.Content;
+            //return File.ReadAllText($"{_env.ContentRootPath}/wwwroot/Posts/{post.PostId}_post.md");
         }
     }
 }

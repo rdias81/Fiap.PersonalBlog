@@ -7,7 +7,7 @@
             const response = await fetch('http://ip-api.com/json');
             const json = await response.json();
             if (json) {
-                console.log('Localizado do IP do Usuario e:', json);
+                console.log('Localizacao do IP do usuario e:', json);
             }
         } catch (e) {
             console.log(e);

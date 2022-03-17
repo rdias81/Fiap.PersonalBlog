@@ -1,8 +1,10 @@
 using Fiap.PersonalBlog.Interfaces;
+using Fiap.PersonalBlog.Persistence;
 using Fiap.PersonalBlog.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +29,11 @@ namespace Fiap.PersonalBlog
         {
             services.AddControllersWithViews();
 
+            var conSqlServer = Configuration["ConnectionStringSql"];
+            services.AddDbContext<BlogContext>(options => options.UseSqlServer(conSqlServer));
+
             services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
 
         }
 
