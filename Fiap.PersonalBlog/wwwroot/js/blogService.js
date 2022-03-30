@@ -17,10 +17,10 @@ define(['./template.js', '../lib/showdown/showdown.js', './clientStorage.js'], f
                 await clientStorage.addPost(json);
             }
 
-            connectionStatus = 'Conexao com a API ok';
+            connectionStatus = 'Veja nossos posts mais recentes';
         } catch (e) {
             console.log('Error ao carregar data: ', e);
-            connectionStatus = 'Nao foi possivel buscar dados na API, vamos seguir offline';
+            connectionStatus = 'Sem conexao internet. Carregados os ultimos posts acessados.';
         }
 
         $('#connection-status').html(connectionStatus);

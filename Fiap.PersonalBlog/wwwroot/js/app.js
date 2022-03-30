@@ -77,7 +77,6 @@ window.pageEvents = {
             navigator.vibrate([1000]);
         }
     }
-
 }
 
 gyroscope.init();
